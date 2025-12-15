@@ -18,7 +18,7 @@ A collection of templates, scripts, and configurations that extend Claude Code's
 
 ### Current Status
 - **Phase**: Development
-- **Version**: 0.7.0 (7 capabilities implemented)
+- **Version**: 0.8.0 (8 capabilities implemented)
 - **Health**: Healthy
 
 ---
@@ -99,6 +99,13 @@ A collection of templates, scripts, and configurations that extend Claude Code's
 - Project-specific and global preferences
 - Explicit teaching via /profile-learn
 
+### 8. Technical Debt Radar
+- Scans codebase for technical debt
+- Detects complexity, code smells, TODOs, test gaps
+- Severity-based prioritization
+- Refactoring guidance via /debt-fix
+- Trend tracking over time
+
 ---
 
 ## Directory Structure
@@ -121,6 +128,7 @@ Claude_Code_helper/
 │   ├── inspect/
 │   ├── knowledge-graph/
 │   ├── learning/
+│   ├── debt/
 │   └── testing/
 ├── .claude/
 │   └── commands/          # This project's slash commands
@@ -140,10 +148,12 @@ Claude_Code_helper/
 - [x] Autonomous PR Reviewer - Complete
 - [x] Codebase Knowledge Graph - Complete
 - [x] Cross-Session Learning Profile - Complete
+- [x] Technical Debt Radar - Complete
 
 ### Recent Changes
 | Date | Change | Chronicle Entry |
 |------|--------|-----------------|
+| 2025-12-15 | Added Technical Debt Radar capability | docs/chronicle/2025-12-15-technical-debt-radar.md |
 | 2025-12-15 | Added Dependency Doctor capability | docs/chronicle/2025-12-15-dependency-doctor.md |
 | 2025-12-15 | Initialized Living Docs on this project | docs/chronicle/2025-12-15-project-initialization.md |
 
@@ -163,9 +173,9 @@ See "Session Continuity" section for next capabilities to build.
 ## Session Continuity
 
 ### For Next Session
-> **Where I left off**: Successfully tested Dependency Doctor capability. All 4 core capabilities are now implemented and working.
+> **Where I left off**: Completed Technical Debt Radar capability. All 8 capabilities are now implemented and working.
 >
-> **Next steps**: Choose next capability from roadmap (see below)
+> **Next steps**: Choose next capability from roadmap (see below) - remaining: Production Feedback Loop, Intelligent Onboarding Agent, Performance Profiler, Spec-to-Implementation Bridge, Incident Response Copilot
 >
 > **Watch out for**: Global CLAUDE.md in ~/.claude/ has the master capability instructions
 
@@ -175,7 +185,7 @@ See "Session Continuity" section for next capabilities to build.
 |---|------------|-------------|--------|
 | 1 | **Dependency Doctor** | Security vulns, outdated versions, auto-upgrade PRs | **DONE** |
 | 2 | **Codebase Knowledge Graph** | Semantic graph of codebase, architectural queries | **DONE** |
-| 3 | Technical Debt Radar | Code smells, complexity hotspots, debt dashboard | Not Started |
+| 3 | **Technical Debt Radar** | Code smells, complexity hotspots, debt dashboard | **DONE** |
 | 4 | Production Feedback Loop | Sentry/logs integration, error correlation, fixes | Not Started |
 | 5 | Intelligent Onboarding Agent | Auto-generate onboarding docs, code tours | Not Started |
 | 6 | Performance Profiler | Bottleneck detection, auto-optimization | Not Started |
@@ -223,6 +233,9 @@ See `docs/chronicle/` for session history.
 - `/profile-view` - View learning profile
 - `/profile-learn` - Teach a preference
 - `/profile-reset` - Reset learning profile
+- `/debt-scan` - Scan codebase for technical debt
+- `/debt-report` - Generate comprehensive debt report
+- `/debt-fix` - Get refactoring guidance for debt item
 
 ---
 

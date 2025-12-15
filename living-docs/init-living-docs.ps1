@@ -3,7 +3,7 @@
     Initialize Living Documentation in a project
 
 .DESCRIPTION
-    Bootstraps the Living Documentation system with seven capabilities:
+    Bootstraps the Living Documentation system with eight capabilities:
     1. Living Documentation (persistent context)
     2. Autonomous Lookup and Inform (app inspection)
     3. Autonomous Test and Check (code verification)
@@ -11,6 +11,7 @@
     5. Autonomous PR Reviewer (code review & PR creation)
     6. Codebase Knowledge Graph (architectural awareness)
     7. Cross-Session Learning Profile (personalized assistance)
+    8. Technical Debt Radar (code health monitoring)
 
 .PARAMETER ProjectPath
     Path to initialize. Defaults to current directory.
@@ -58,6 +59,7 @@ $directories = @(
     "docs/dependencies",
     "docs/knowledge-graph",
     "docs/learning",
+    "docs/debt",
     ".claude/commands"
 )
 
@@ -100,6 +102,7 @@ Copy-Template "docs/dependencies/README.md" "docs/dependencies/README.md" $Proje
 Copy-Template "docs/dependencies/config.json" "docs/dependencies/config.json" $ProjectName
 Copy-Template "docs/knowledge-graph/README.md" "docs/knowledge-graph/README.md" $ProjectName
 Copy-Template "docs/learning/README.md" "docs/learning/README.md" $ProjectName
+Copy-Template "docs/debt/README.md" "docs/debt/README.md" $ProjectName
 
 # Copy slash commands
 $commandsSource = Join-Path $TemplateDir ".claude/commands"
@@ -121,7 +124,7 @@ $chronicleEntry = @"
 
 ## Summary
 
-Initialized Living Documentation for $ProjectName with all seven capabilities:
+Initialized Living Documentation for $ProjectName with all eight capabilities:
 1. Living Documentation (persistent context)
 2. Autonomous Lookup and Inform (app inspection)
 3. Autonomous Test and Check (code verification)
@@ -129,6 +132,7 @@ Initialized Living Documentation for $ProjectName with all seven capabilities:
 5. Autonomous PR Reviewer (code review & PR creation)
 6. Codebase Knowledge Graph (architectural awareness)
 7. Cross-Session Learning Profile (personalized assistance)
+8. Technical Debt Radar (code health monitoring)
 
 ## Files Created
 
@@ -141,6 +145,7 @@ Initialized Living Documentation for $ProjectName with all seven capabilities:
 - docs/dependencies/ - Dependency management
 - docs/knowledge-graph/ - Codebase knowledge graph
 - docs/learning/ - Cross-session learning profile
+- docs/debt/ - Technical debt tracking
 - .claude/commands/ - Slash commands
 
 ## Next Session
@@ -152,7 +157,7 @@ Initialized Living Documentation for $ProjectName with all seven capabilities:
 
 ## Context
 
-> **Capabilities Active**: All seven capabilities ready
+> **Capabilities Active**: All eight capabilities ready
 > **Run /deps**: Check for vulnerable dependencies
 > **Run /verify**: Verify code before delivery
 "@
@@ -175,6 +180,7 @@ Write-Host "  4. Dependency Doctor - Security & freshness monitoring" -Foregroun
 Write-Host "  5. Autonomous PR Reviewer - Code review & PR creation" -ForegroundColor White
 Write-Host "  6. Codebase Knowledge Graph - Architectural awareness" -ForegroundColor White
 Write-Host "  7. Cross-Session Learning - Personalized assistance" -ForegroundColor White
+Write-Host "  8. Technical Debt Radar - Code health monitoring" -ForegroundColor White
 
 Write-Host "`nSlash Commands:" -ForegroundColor Yellow
 Write-Host "  /status        - Project status" -ForegroundColor Gray
@@ -194,6 +200,9 @@ Write-Host "  /kg-update     - Update graph incrementally" -ForegroundColor Gray
 Write-Host "  /profile-view  - View your learning profile" -ForegroundColor Gray
 Write-Host "  /profile-learn - Teach me a preference" -ForegroundColor Gray
 Write-Host "  /profile-reset - Reset learning profile" -ForegroundColor Gray
+Write-Host "  /debt-scan     - Scan for technical debt" -ForegroundColor Gray
+Write-Host "  /debt-report   - Generate debt report" -ForegroundColor Gray
+Write-Host "  /debt-fix      - Get refactoring guidance" -ForegroundColor Gray
 
 Write-Host "`nNext steps:" -ForegroundColor Yellow
 Write-Host "  1. Edit CLAUDE.md with project details" -ForegroundColor White
