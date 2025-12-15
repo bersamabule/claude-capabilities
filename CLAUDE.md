@@ -18,7 +18,7 @@ A collection of templates, scripts, and configurations that extend Claude Code's
 
 ### Current Status
 - **Phase**: Development
-- **Version**: 0.6.0 (6 capabilities implemented)
+- **Version**: 0.7.0 (7 capabilities implemented)
 - **Health**: Healthy
 
 ---
@@ -92,6 +92,13 @@ A collection of templates, scripts, and configurations that extend Claude Code's
 - Impact analysis for changes
 - Pattern and architecture detection
 
+### 7. Cross-Session Learning Profile
+- Learns coding patterns and preferences over time
+- Tracks common mistakes to avoid
+- Adapts communication style
+- Project-specific and global preferences
+- Explicit teaching via /profile-learn
+
 ---
 
 ## Directory Structure
@@ -113,6 +120,7 @@ Claude_Code_helper/
 │   ├── dependencies/
 │   ├── inspect/
 │   ├── knowledge-graph/
+│   ├── learning/
 │   └── testing/
 ├── .claude/
 │   └── commands/          # This project's slash commands
@@ -131,6 +139,7 @@ Claude_Code_helper/
 - [x] Dependency Doctor - Complete & Tested
 - [x] Autonomous PR Reviewer - Complete
 - [x] Codebase Knowledge Graph - Complete
+- [x] Cross-Session Learning Profile - Complete
 
 ### Recent Changes
 | Date | Change | Chronicle Entry |
@@ -170,7 +179,7 @@ See "Session Continuity" section for next capabilities to build.
 | 4 | Production Feedback Loop | Sentry/logs integration, error correlation, fixes | Not Started |
 | 5 | Intelligent Onboarding Agent | Auto-generate onboarding docs, code tours | Not Started |
 | 6 | Performance Profiler | Bottleneck detection, auto-optimization | Not Started |
-| 7 | Cross-Session Learning Profile | Learn user patterns/preferences over time | Not Started |
+| 7 | **Cross-Session Learning Profile** | Learn user patterns/preferences over time | **DONE** |
 | 8 | **Autonomous PR Reviewer** | Deep PR review with codebase context | **DONE** |
 | 9 | Spec-to-Implementation Bridge | OpenAPI/GraphQL/Figma to code, drift detection | Not Started |
 | 10 | Incident Response Copilot | Root cause tracing, rollback strategies, comms | Not Started |
@@ -211,6 +220,9 @@ See `docs/chronicle/` for session history.
 - `/kg-build` - Build codebase knowledge graph
 - `/kg-query` - Query the knowledge graph
 - `/kg-update` - Update graph incrementally
+- `/profile-view` - View learning profile
+- `/profile-learn` - Teach a preference
+- `/profile-reset` - Reset learning profile
 
 ---
 
