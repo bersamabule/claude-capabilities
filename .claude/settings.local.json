@@ -1,0 +1,32 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node --version)",
+      "Bash(test:*)",
+      "Bash(powershell.exe:*)",
+      "Bash(claude mcp add:*)",
+      "Bash(claude mcp get:*)",
+      "Bash(claude mcp:*)",
+      "Bash(if [ -d \"$HOME/.claude\" ])",
+      "Bash(then echo \"EXISTS\")",
+      "Bash(else echo \"NOT_EXISTS\")",
+      "Bash(fi)",
+      "Bash(if [ -f \"$HOME/CLAUDE.md\" ])",
+      "Bash(then cat \"$HOME/CLAUDE.md\")",
+      "Bash(else echo \"No global CLAUDE.md found\")",
+      "Bash(chmod:*)",
+      "Bash(bash:*)",
+      "Bash(cat:*)",
+      "Bash(git init:*)",
+      "Bash(git add:*)",
+      "Bash(git commit -m \"$(cat <<''EOF''\nClaude capabilities: Living Docs, App Inspection, Test & Check\n\nThree autonomous capabilities for Claude Code:\n1. Living Documentation - Persistent context across sessions\n2. Autonomous Lookup and Inform - App inspection without screenshots\n3. Autonomous Test and Check - Auto-verify code before delivery\n\n🤖 Generated with [Claude Code](https://claude.com/claude-code)\n\nCo-Authored-By: Claude <noreply@anthropic.com>\nEOF\n)\")",
+      "Bash(gh auth status:*)",
+      "Bash(gh repo create:*)",
+      "Bash(git remote add:*)",
+      "Bash(git branch:*)",
+      "Bash(git push:*)"
+    ],
+    "deny": [],
+    "ask": []
+  }
+}

@@ -3,11 +3,12 @@
     Initialize Living Documentation in a project
 
 .DESCRIPTION
-    Bootstraps the Living Documentation system with four capabilities:
+    Bootstraps the Living Documentation system with five capabilities:
     1. Living Documentation (persistent context)
     2. Autonomous Lookup and Inform (app inspection)
     3. Autonomous Test and Check (code verification)
     4. Dependency Doctor (dependency management)
+    5. Autonomous PR Reviewer (code review & PR creation)
 
 .PARAMETER ProjectPath
     Path to initialize. Defaults to current directory.
@@ -114,11 +115,12 @@ $chronicleEntry = @"
 
 ## Summary
 
-Initialized Living Documentation for $ProjectName with all four capabilities:
+Initialized Living Documentation for $ProjectName with all five capabilities:
 1. Living Documentation (persistent context)
 2. Autonomous Lookup and Inform (app inspection)
 3. Autonomous Test and Check (code verification)
 4. Dependency Doctor (dependency management)
+5. Autonomous PR Reviewer (code review & PR creation)
 
 ## Files Created
 
@@ -160,6 +162,7 @@ Write-Host "  1. Living Documentation - Persistent context across sessions" -For
 Write-Host "  2. Autonomous Lookup and Inform - App inspection" -ForegroundColor White
 Write-Host "  3. Autonomous Test and Check - Code verification" -ForegroundColor White
 Write-Host "  4. Dependency Doctor - Security & freshness monitoring" -ForegroundColor White
+Write-Host "  5. Autonomous PR Reviewer - Code review & PR creation" -ForegroundColor White
 
 Write-Host "`nSlash Commands:" -ForegroundColor Yellow
 Write-Host "  /status       - Project status" -ForegroundColor Gray
@@ -170,6 +173,9 @@ Write-Host "  /verify       - Run verification suite" -ForegroundColor Gray
 Write-Host "  /test         - Run tests" -ForegroundColor Gray
 Write-Host "  /deps         - Dependency health report" -ForegroundColor Gray
 Write-Host "  /deps-upgrade - Dependency upgrade plan" -ForegroundColor Gray
+Write-Host "  /review       - Code review for current branch" -ForegroundColor Gray
+Write-Host "  /review-pr    - Review existing GitHub PR" -ForegroundColor Gray
+Write-Host "  /pr-create    - Create PR with auto-description" -ForegroundColor Gray
 
 Write-Host "`nNext steps:" -ForegroundColor Yellow
 Write-Host "  1. Edit CLAUDE.md with project details" -ForegroundColor White
