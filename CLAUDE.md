@@ -173,11 +173,11 @@ See "Session Continuity" section for next capabilities to build.
 ## Session Continuity
 
 ### For Next Session
-> **Where I left off**: Completed Technical Debt Radar capability. All 8 capabilities are now implemented and working.
+> **Where I left off**: Completed Technical Debt Radar capability and added `global-CLAUDE.md` template for easy cross-machine installation. All 8 capabilities are now implemented and working.
 >
 > **Next steps**: Choose next capability from roadmap (see below) - remaining: Production Feedback Loop, Intelligent Onboarding Agent, Performance Profiler, Spec-to-Implementation Bridge, Incident Response Copilot
 >
-> **Watch out for**: Global CLAUDE.md in ~/.claude/ has the master capability instructions
+> **Watch out for**: Global CLAUDE.md in ~/.claude/ has the master capability instructions. Use `living-docs/global-CLAUDE.md` as template for other machines.
 
 ### Capabilities Roadmap Table (Original Top 10)
 
