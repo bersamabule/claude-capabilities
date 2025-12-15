@@ -18,7 +18,7 @@ A collection of templates, scripts, and configurations that extend Claude Code's
 
 ### Current Status
 - **Phase**: Development
-- **Version**: 0.5.0 (5 capabilities implemented)
+- **Version**: 0.6.0 (6 capabilities implemented)
 - **Health**: Healthy
 
 ---
@@ -85,6 +85,13 @@ A collection of templates, scripts, and configurations that extend Claude Code's
 - Auto-generated PR descriptions
 - Review submission with inline comments
 
+### 6. Codebase Knowledge Graph
+- Semantic graph of entire codebase
+- Tracks files, functions, classes, and relationships
+- Natural language queries ("What depends on X?")
+- Impact analysis for changes
+- Pattern and architecture detection
+
 ---
 
 ## Directory Structure
@@ -105,6 +112,7 @@ Claude_Code_helper/
 │   ├── chronicle/
 │   ├── dependencies/
 │   ├── inspect/
+│   ├── knowledge-graph/
 │   └── testing/
 ├── .claude/
 │   └── commands/          # This project's slash commands
@@ -122,6 +130,7 @@ Claude_Code_helper/
 - [x] Autonomous Test and Check - Complete
 - [x] Dependency Doctor - Complete & Tested
 - [x] Autonomous PR Reviewer - Complete
+- [x] Codebase Knowledge Graph - Complete
 
 ### Recent Changes
 | Date | Change | Chronicle Entry |
@@ -156,7 +165,7 @@ See "Session Continuity" section for next capabilities to build.
 | # | Capability | Description | Status |
 |---|------------|-------------|--------|
 | 1 | **Dependency Doctor** | Security vulns, outdated versions, auto-upgrade PRs | **DONE** |
-| 2 | Codebase Knowledge Graph | Semantic graph of codebase, architectural queries | Not Started |
+| 2 | **Codebase Knowledge Graph** | Semantic graph of codebase, architectural queries | **DONE** |
 | 3 | Technical Debt Radar | Code smells, complexity hotspots, debt dashboard | Not Started |
 | 4 | Production Feedback Loop | Sentry/logs integration, error correlation, fixes | Not Started |
 | 5 | Intelligent Onboarding Agent | Auto-generate onboarding docs, code tours | Not Started |
@@ -199,6 +208,9 @@ See `docs/chronicle/` for session history.
 - `/review` - Code review for current branch
 - `/review-pr` - Review existing GitHub PR
 - `/pr-create` - Create PR with auto-description
+- `/kg-build` - Build codebase knowledge graph
+- `/kg-query` - Query the knowledge graph
+- `/kg-update` - Update graph incrementally
 
 ---
 

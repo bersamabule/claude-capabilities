@@ -3,12 +3,13 @@
     Initialize Living Documentation in a project
 
 .DESCRIPTION
-    Bootstraps the Living Documentation system with five capabilities:
+    Bootstraps the Living Documentation system with six capabilities:
     1. Living Documentation (persistent context)
     2. Autonomous Lookup and Inform (app inspection)
     3. Autonomous Test and Check (code verification)
     4. Dependency Doctor (dependency management)
     5. Autonomous PR Reviewer (code review & PR creation)
+    6. Codebase Knowledge Graph (architectural awareness)
 
 .PARAMETER ProjectPath
     Path to initialize. Defaults to current directory.
@@ -54,6 +55,7 @@ $directories = @(
     "docs/inspect/screenshots",
     "docs/testing",
     "docs/dependencies",
+    "docs/knowledge-graph",
     ".claude/commands"
 )
 
@@ -94,6 +96,7 @@ Copy-Template "docs/testing/test-config.json" "docs/testing/test-config.json" $P
 Copy-Template "docs/testing/verification-checklist.md" "docs/testing/verification-checklist.md" $ProjectName
 Copy-Template "docs/dependencies/README.md" "docs/dependencies/README.md" $ProjectName
 Copy-Template "docs/dependencies/config.json" "docs/dependencies/config.json" $ProjectName
+Copy-Template "docs/knowledge-graph/README.md" "docs/knowledge-graph/README.md" $ProjectName
 
 # Copy slash commands
 $commandsSource = Join-Path $TemplateDir ".claude/commands"
@@ -115,12 +118,13 @@ $chronicleEntry = @"
 
 ## Summary
 
-Initialized Living Documentation for $ProjectName with all five capabilities:
+Initialized Living Documentation for $ProjectName with all six capabilities:
 1. Living Documentation (persistent context)
 2. Autonomous Lookup and Inform (app inspection)
 3. Autonomous Test and Check (code verification)
 4. Dependency Doctor (dependency management)
 5. Autonomous PR Reviewer (code review & PR creation)
+6. Codebase Knowledge Graph (architectural awareness)
 
 ## Files Created
 
@@ -131,6 +135,7 @@ Initialized Living Documentation for $ProjectName with all five capabilities:
 - docs/inspect/ - Inspection reports
 - docs/testing/ - Test configuration
 - docs/dependencies/ - Dependency management
+- docs/knowledge-graph/ - Codebase knowledge graph
 - .claude/commands/ - Slash commands
 
 ## Next Session
@@ -142,7 +147,7 @@ Initialized Living Documentation for $ProjectName with all five capabilities:
 
 ## Context
 
-> **Capabilities Active**: All four capabilities ready
+> **Capabilities Active**: All six capabilities ready
 > **Run /deps**: Check for vulnerable dependencies
 > **Run /verify**: Verify code before delivery
 "@
@@ -163,6 +168,7 @@ Write-Host "  2. Autonomous Lookup and Inform - App inspection" -ForegroundColor
 Write-Host "  3. Autonomous Test and Check - Code verification" -ForegroundColor White
 Write-Host "  4. Dependency Doctor - Security & freshness monitoring" -ForegroundColor White
 Write-Host "  5. Autonomous PR Reviewer - Code review & PR creation" -ForegroundColor White
+Write-Host "  6. Codebase Knowledge Graph - Architectural awareness" -ForegroundColor White
 
 Write-Host "`nSlash Commands:" -ForegroundColor Yellow
 Write-Host "  /status       - Project status" -ForegroundColor Gray
@@ -176,6 +182,9 @@ Write-Host "  /deps-upgrade - Dependency upgrade plan" -ForegroundColor Gray
 Write-Host "  /review       - Code review for current branch" -ForegroundColor Gray
 Write-Host "  /review-pr    - Review existing GitHub PR" -ForegroundColor Gray
 Write-Host "  /pr-create    - Create PR with auto-description" -ForegroundColor Gray
+Write-Host "  /kg-build     - Build codebase knowledge graph" -ForegroundColor Gray
+Write-Host "  /kg-query     - Query the knowledge graph" -ForegroundColor Gray
+Write-Host "  /kg-update    - Update graph incrementally" -ForegroundColor Gray
 
 Write-Host "`nNext steps:" -ForegroundColor Yellow
 Write-Host "  1. Edit CLAUDE.md with project details" -ForegroundColor White
