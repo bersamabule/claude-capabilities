@@ -18,7 +18,7 @@ A collection of templates, scripts, and configurations that extend Claude Code's
 
 ### Current Status
 - **Phase**: Development
-- **Version**: 0.8.0 (8 capabilities implemented)
+- **Version**: 0.11.0 (11 capabilities implemented)
 - **Health**: Healthy
 
 ---
@@ -106,6 +106,27 @@ A collection of templates, scripts, and configurations that extend Claude Code's
 - Refactoring guidance via /debt-fix
 - Trend tracking over time
 
+### 9. Intelligent Onboarding Agent
+- Auto-generates comprehensive onboarding guides
+- Creates interactive code tours for any area
+- Deep explanations of files, functions, and concepts
+- Adapts to user experience level
+- Integrates with Knowledge Graph for better context
+
+### 10. Spec-to-Implementation Bridge
+- Detects and catalogs API specs (OpenAPI, GraphQL, Prisma, Proto)
+- Drift detection between specs and implementation
+- Code generation from specs (types, clients, server stubs)
+- Spec validation with best practice checks
+- CI integration for spec compliance
+
+### 11. Context Guardian
+- Monitors context window usage proactively
+- Warns before "prompt is too long" errors
+- Creates comprehensive handoff documents (WORKING.md)
+- Emergency handoff for critical situations (EMERGENCY.md)
+- Enables seamless session transitions with zero lost work
+
 ---
 
 ## Directory Structure
@@ -129,6 +150,9 @@ Claude_Code_helper/
 │   ├── knowledge-graph/
 │   ├── learning/
 │   ├── debt/
+│   ├── onboarding/
+│   ├── specs/
+│   ├── context/
 │   └── testing/
 ├── .claude/
 │   └── commands/          # This project's slash commands
@@ -149,10 +173,16 @@ Claude_Code_helper/
 - [x] Codebase Knowledge Graph - Complete
 - [x] Cross-Session Learning Profile - Complete
 - [x] Technical Debt Radar - Complete
+- [x] Intelligent Onboarding Agent - Complete
+- [x] Spec-to-Implementation Bridge - Complete
+- [x] Context Guardian - Complete
 
 ### Recent Changes
 | Date | Change | Chronicle Entry |
 |------|--------|-----------------|
+| 2025-12-15 | Added Context Guardian capability | docs/chronicle/2025-12-15-context-guardian.md |
+| 2025-12-15 | Added Spec-to-Implementation Bridge capability | docs/chronicle/2025-12-15-spec-bridge.md |
+| 2025-12-15 | Added Intelligent Onboarding Agent capability | docs/chronicle/2025-12-15-intelligent-onboarding.md |
 | 2025-12-15 | Added Technical Debt Radar capability | docs/chronicle/2025-12-15-technical-debt-radar.md |
 | 2025-12-15 | Added Dependency Doctor capability | docs/chronicle/2025-12-15-dependency-doctor.md |
 | 2025-12-15 | Initialized Living Docs on this project | docs/chronicle/2025-12-15-project-initialization.md |
@@ -173,9 +203,9 @@ See "Session Continuity" section for next capabilities to build.
 ## Session Continuity
 
 ### For Next Session
-> **Where I left off**: Completed Technical Debt Radar capability and added `global-CLAUDE.md` template for easy cross-machine installation. All 8 capabilities are now implemented and working.
+> **Where I left off**: Completed Context Guardian capability. All 11 capabilities are now implemented and working.
 >
-> **Next steps**: Choose next capability from roadmap (see below) - remaining: Production Feedback Loop, Intelligent Onboarding Agent, Performance Profiler, Spec-to-Implementation Bridge, Incident Response Copilot
+> **Next steps**: Choose next capability from roadmap (see below) - remaining: Production Feedback Loop, Performance Profiler, Incident Response Copilot
 >
 > **Watch out for**: Global CLAUDE.md in ~/.claude/ has the master capability instructions. Use `living-docs/global-CLAUDE.md` as template for other machines.
 
@@ -187,11 +217,11 @@ See "Session Continuity" section for next capabilities to build.
 | 2 | **Codebase Knowledge Graph** | Semantic graph of codebase, architectural queries | **DONE** |
 | 3 | **Technical Debt Radar** | Code smells, complexity hotspots, debt dashboard | **DONE** |
 | 4 | Production Feedback Loop | Sentry/logs integration, error correlation, fixes | Not Started |
-| 5 | Intelligent Onboarding Agent | Auto-generate onboarding docs, code tours | Not Started |
+| 5 | **Intelligent Onboarding Agent** | Auto-generate onboarding docs, code tours | **DONE** |
 | 6 | Performance Profiler | Bottleneck detection, auto-optimization | Not Started |
 | 7 | **Cross-Session Learning Profile** | Learn user patterns/preferences over time | **DONE** |
 | 8 | **Autonomous PR Reviewer** | Deep PR review with codebase context | **DONE** |
-| 9 | Spec-to-Implementation Bridge | OpenAPI/GraphQL/Figma to code, drift detection | Not Started |
+| 9 | **Spec-to-Implementation Bridge** | OpenAPI/GraphQL/Figma to code, drift detection | **DONE** |
 | 10 | Incident Response Copilot | Root cause tracing, rollback strategies, comms | Not Started |
 
 **Foundation Capabilities (Pre-requisites, already built):**
@@ -236,6 +266,17 @@ See `docs/chronicle/` for session history.
 - `/debt-scan` - Scan codebase for technical debt
 - `/debt-report` - Generate comprehensive debt report
 - `/debt-fix` - Get refactoring guidance for debt item
+- `/onboard` - Generate codebase onboarding guide
+- `/tour` - List or take code tours
+- `/tour:create` - Create a new code tour
+- `/explain` - Deep explanation of files, functions, or concepts
+- `/spec-scan` - Scan for API specs (OpenAPI, GraphQL, etc.)
+- `/spec-drift` - Check for spec-implementation drift
+- `/spec-generate` - Generate code from specs
+- `/spec-validate` - Validate spec files
+- `/context-status` - Check context window usage
+- `/context-guardian` - Create comprehensive session handoff
+- `/emergency-handoff` - Emergency minimal handoff
 
 ---
 

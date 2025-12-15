@@ -393,6 +393,262 @@ The radar tracks debt over time:
 
 ---
 
+## Intelligent Onboarding Agent - Developer Onboarding
+
+**CAPABILITY**: I auto-generate comprehensive onboarding documentation, interactive code tours, and deep explanations for any codebase.
+
+### Core Principle
+**"Get new developers productive in hours, not weeks."**
+
+### When Onboarding Agent Activates
+
+1. **On Request**: Via `/onboard`, `/tour`, or `/explain` commands
+2. **New Team Members**: When asked to help someone get started
+3. **Codebase Exploration**: When user needs to understand unfamiliar code
+
+### What Gets Generated
+
+| Output | Content |
+|--------|---------|
+| **Onboarding Guide** | Quick start, architecture overview, key files, common tasks |
+| **Code Tours** | Step-by-step walkthroughs of specific areas (auth, API, data, etc.) |
+| **Explanations** | Deep dives into files, functions, or concepts |
+
+### Commands
+
+- `/onboard` - Generate full onboarding guide for codebase
+- `/onboard:quick` - 5-minute quick start guide
+- `/onboard:deep` - Exhaustive documentation
+- `/tour` - List available code tours
+- `/tour [area]` - Take a guided tour (auth, api, data, ui, etc.)
+- `/tour:create [area]` - Create a new tour for an area
+- `/explain [file]` - Deep explanation of a specific file
+- `/explain [file:function]` - Explain a specific function
+- `/explain [concept]` - Explain a project concept
+- `/explain:simple [target]` - ELI5 explanation
+- `/explain:deep [target]` - Expert-level deep dive
+
+### Onboarding Guide Contents
+
+Generated guides include:
+- Prerequisites and setup instructions
+- Project overview and tech stack
+- Directory structure with annotations
+- Key files and when you'll touch them
+- Domain glossary
+- Common tasks (adding features, running tests, debugging)
+- "Where to find things" quick reference
+- Links to code tours
+
+### Code Tour Structure
+
+Each tour provides:
+1. Overview and prerequisites
+2. 5-10 "stops" at key files
+3. Code snippets with explanations
+4. Key points and patterns to notice
+5. How each stop connects to the next
+6. Summary and next steps
+
+### Output Storage
+
+Stored in `docs/onboarding/`:
+- `README.md` - Main onboarding guide
+- `tours/` - Code tour definitions
+
+### Integration with Other Capabilities
+
+- **Knowledge Graph**: Uses relationships for better tour flow and impact understanding
+- **Learning Profile**: Adapts explanation depth to user experience level
+- **Living Documentation**: Stores output in docs/onboarding/
+- **Chronicle**: Records onboarding guide generation
+
+---
+
+## Spec-to-Implementation Bridge - API Contract Management
+
+**CAPABILITY**: I detect, validate, and track specifications (OpenAPI, GraphQL, Prisma, etc.) and ensure implementations stay aligned with specs.
+
+### Core Principle
+**"Keep code and specs in sync - prevent drift before it causes bugs."**
+
+### When Spec Bridge Activates
+
+1. **On Request**: Via `/spec-scan`, `/spec-drift`, `/spec-generate`, `/spec-validate`
+2. **PR Reviews**: Checks if spec changes need implementation updates
+3. **Code Changes**: Detects when implementation drifts from spec
+4. **New Projects**: Scans for existing specs during onboarding
+
+### Supported Spec Types
+
+| Type | Extensions | Use Case |
+|------|------------|----------|
+| **OpenAPI** | `.yaml`, `.yml`, `.json` | REST APIs |
+| **GraphQL** | `.graphql`, `.gql` | GraphQL APIs |
+| **Prisma** | `.prisma` | Database schemas |
+| **Protocol Buffers** | `.proto` | gRPC services |
+| **JSON Schema** | `.schema.json` | Data validation |
+| **AsyncAPI** | `asyncapi.yaml` | Event-driven APIs |
+
+### Commands
+
+- `/spec-scan` - Detect all specs in codebase
+- `/spec-scan:openapi` - Scan for OpenAPI specs only
+- `/spec-scan:graphql` - Scan for GraphQL schemas only
+- `/spec-drift` - Check for implementation drift
+- `/spec-drift [file]` - Check specific spec
+- `/spec-drift:strict` - Fail on drift (for CI)
+- `/spec-generate [file]` - Generate code from spec
+- `/spec-generate [file] --types` - Generate types only
+- `/spec-generate [file] --client` - Generate API client
+- `/spec-generate [file] --server` - Generate server stubs
+- `/spec-generate:setup` - Set up code generation
+- `/spec-validate` - Validate spec files
+- `/spec-validate:strict` - Strict validation for CI
+
+### Drift Detection
+
+Detects mismatches between specs and code:
+
+| Drift Type | Example |
+|------------|---------|
+| **Missing endpoints** | Spec has route, code doesn't |
+| **Schema mismatch** | Field types don't match |
+| **Extra fields** | Code returns data not in spec |
+| **Missing fields** | Spec requires field, code omits |
+| **Status codes** | Wrong HTTP status returned |
+| **Security gaps** | Auth missing on protected endpoint |
+
+### Code Generation
+
+Generates from specs:
+- **Types/Interfaces** - TypeScript types from OpenAPI/GraphQL
+- **API Clients** - Type-safe fetch clients
+- **Server Stubs** - Route handlers with TODOs
+- **Validation** - Request/response validators
+
+### Output Storage
+
+Stored in `docs/specs/`:
+- `README.md` - Spec inventory and status
+- `registry.json` - Machine-readable registry
+- `drift-report.md` - Latest drift report
+- `validation-report.md` - Validation results
+
+### Integration with Other Capabilities
+
+- **PR Reviewer**: Checks spec compliance in PRs
+- **Technical Debt Radar**: Drift shows as debt
+- **Knowledge Graph**: Spec-to-implementation relationships
+- **Test & Check**: Validates generated code compiles
+
+---
+
+## Context Guardian - Session Protection
+
+**CAPABILITY**: I proactively monitor context window usage and facilitate graceful handoffs before sessions fail with "prompt is too long" errors.
+
+### Core Principle
+**"Never lose work to context exhaustion. Handoff early, handoff often."**
+
+### Why This Matters
+
+Claude Code has a 200k token context window. When it fills up:
+- The session fails with "prompt is too long"
+- No further messages can be sent
+- Work in progress may be lost
+- You must start a new session from scratch
+
+The Context Guardian prevents this by:
+1. Monitoring context usage levels
+2. Warning before critical thresholds
+3. Creating comprehensive handoff documents
+4. Enabling seamless session transitions
+
+### Context Usage Levels
+
+| Level | Usage | Status | Action |
+|-------|-------|--------|--------|
+| **Green** | 0-50% | Safe | Continue working |
+| **Yellow** | 50-70% | Caution | Be mindful, consider handoff soon |
+| **Orange** | 70-80% | Warning | Run `/context-guardian` now |
+| **Red** | 80-90% | Critical | Run `/emergency-handoff` immediately |
+| **Black** | 90%+ | Danger | Session at imminent risk of failure |
+
+### Commands
+
+- `/context-status` - Check current context usage and get recommendations
+- `/context-guardian` - Create comprehensive handoff (use at 70-80%)
+- `/context-guardian:quick` - Create minimal handoff (use at 80-90%)
+- `/emergency-handoff` - Immediate minimal handoff (use at 90%+)
+
+### How Handoffs Work
+
+**At 70-80% (Proactive)**:
+1. Run `/context-guardian`
+2. Creates `docs/context/WORKING.md` with full session state
+3. Updates CLAUDE.md with continuation notes
+4. Optionally stashes/commits changes
+5. Provides resume prompt for next session
+
+**At 90%+ (Emergency)**:
+1. Run `/emergency-handoff`
+2. Creates minimal `docs/context/EMERGENCY.md`
+3. Stashes git changes
+4. Provides emergency resume prompt
+5. **End session immediately**
+
+### Resuming After Handoff
+
+In your new session:
+
+```
+Continue from the previous session. Read docs/context/WORKING.md
+for the full state. The previous session was working on [TASK].
+Start with [NEXT_STEP].
+```
+
+### Handoff File Contents
+
+**WORKING.md** captures:
+- Original objective
+- Progress summary (completed, in progress, not started)
+- Modified files with change descriptions
+- Key decisions and rationale
+- Problems encountered (resolved and unresolved)
+- Technical context (architecture, dependencies, config)
+- Priority-ordered next steps
+- Resume instructions and suggested prompt
+
+**EMERGENCY.md** captures (minimal):
+- What you were doing (one sentence)
+- Modified files (git status)
+- Single most important next step
+- Emergency resume prompt
+
+### Prevention Tips
+
+1. **Check regularly**: Run `/context-status` every 30-40 messages
+2. **Handoff early**: At 70%, not when forced
+3. **Use subagents**: Offload exploration tasks to preserve main context
+4. **Clear between tasks**: Use `/clear` for unrelated work
+5. **Keep CLAUDE.md lean**: Under 5k tokens
+6. **Read selectively**: Only load files you need
+
+### Output Storage
+
+Stored in `docs/context/`:
+- `WORKING.md` - Full handoff state
+- `EMERGENCY.md` - Emergency minimal state
+
+### Integration with Other Capabilities
+
+- **Chronicle**: Handoffs trigger chronicle entries
+- **Living Documentation**: Updates CLAUDE.md automatically
+- **Git Integration**: Stashes/commits to preserve changes
+
+---
+
 ## Session Start Checklist
 
 When beginning ANY coding session:
@@ -425,6 +681,9 @@ When beginning ANY coding session:
 - Use Autonomous PR Reviewer for code reviews and PR creation
 - Use Cross-Session Learning to personalize assistance over time
 - Use Technical Debt Radar to track and manage code debt
+- Use Intelligent Onboarding Agent for developer onboarding and code exploration
+- Use Spec-to-Implementation Bridge to keep APIs aligned with specs
+- Use Context Guardian to protect sessions from context exhaustion
 - Default browser: Brave (Chromium-based)
 
 ---
@@ -454,3 +713,14 @@ When Living Documentation is initialized, these commands work:
 - `/debt-scan` - Scan codebase for technical debt
 - `/debt-report` - Generate comprehensive debt report
 - `/debt-fix` - Get refactoring guidance for debt item
+- `/onboard` - Generate codebase onboarding guide
+- `/tour` - List or take code tours
+- `/tour:create` - Create a new code tour
+- `/explain` - Deep explanation of files, functions, or concepts
+- `/spec-scan` - Scan for API specs (OpenAPI, GraphQL, etc.)
+- `/spec-drift` - Check for spec-implementation drift
+- `/spec-generate` - Generate code from specs
+- `/spec-validate` - Validate spec files
+- `/context-status` - Check context window usage
+- `/context-guardian` - Create comprehensive session handoff
+- `/emergency-handoff` - Emergency minimal handoff
