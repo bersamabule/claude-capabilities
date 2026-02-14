@@ -4,7 +4,13 @@
 
 .DESCRIPTION
     Launches a Chromium-based browser with remote debugging port open,
-    allowing Claude to connect via Chrome DevTools MCP for inspection.
+    allowing Claude to connect via Playwright MCP for browser automation.
+
+    Two profile modes:
+    - Default (separate profile): Safe, isolated, no existing logins
+    - Main profile (-UseMainProfile): Uses your real browser profile with
+      all saved logins (ManageBac, Google, etc.) — requires closing all
+      existing browser windows first
 
 .PARAMETER Browser
     Which browser to launch: 'brave' (default) or 'chrome'
@@ -13,13 +19,26 @@
     Remote debugging port (default: 9222)
 
 .PARAMETER Url
-    Initial URL to open (default: http://localhost:3000)
+    Initial URL to open (default: about:blank)
+
+.PARAMETER UseMainProfile
+    Use your real browser profile instead of a temp one.
+    Preserves all logins (ManageBac, Google, etc.)
+    IMPORTANT: Close all existing browser windows first!
 
 .PARAMETER Profile
-    Use a separate profile for debugging (default: true)
+    Use a separate profile for debugging (default: true).
+    Ignored if -UseMainProfile is set.
 
 .EXAMPLE
     .\start-browser-debug.ps1
+    # Launches with temp profile, good for general debugging
+
+.EXAMPLE
+    .\start-browser-debug.ps1 -UseMainProfile -Url "https://tzuchischool.managebac.com/"
+    # Launches with your real profile — ManageBac already logged in
+
+.EXAMPLE
     .\start-browser-debug.ps1 -Browser chrome -Url http://localhost:5173
     .\start-browser-debug.ps1 -Port 9223
 #>
@@ -28,7 +47,8 @@ param(
     [ValidateSet('brave', 'chrome')]
     [string]$Browser = 'brave',
     [int]$Port = 9222,
-    [string]$Url = 'http://localhost:3000',
+    [string]$Url = 'about:blank',
+    [switch]$UseMainProfile,
     [bool]$Profile = $true
 )
 
@@ -46,6 +66,12 @@ $BrowserPaths = @{
         "${env:ProgramFiles(x86)}\Google\Chrome\Application\chrome.exe",
         "${env:LocalAppData}\Google\Chrome\Application\chrome.exe"
     )
+}
+
+# Define user data directories for main profile
+$MainProfilePaths = @{
+    'brave'  = "${env:LocalAppData}\BraveSoftware\Brave-Browser\User Data"
+    'chrome' = "${env:LocalAppData}\Google\Chrome\User Data"
 }
 
 # Find browser executable
@@ -86,7 +112,7 @@ $PortInUse = Get-NetTCPConnection -LocalPort $Port -ErrorAction SilentlyContinue
 if ($PortInUse) {
     Write-Host "Port $Port is already in use." -ForegroundColor Yellow
     Write-Host "A debugging session may already be running." -ForegroundColor Yellow
-    Write-Host "`nTo connect Claude, the browser is ready at: http://localhost:$Port" -ForegroundColor Green
+    Write-Host "`nClaude can connect at: http://localhost:$Port" -ForegroundColor Green
 
     # Check if we can get browser info
     try {
@@ -98,25 +124,67 @@ if ($PortInUse) {
     exit 0
 }
 
-# Create debug profile directory if using separate profile
+# If using main profile, check for running browser instances
+if ($UseMainProfile) {
+    $BrowserProcess = if ($Browser -eq 'brave') { 'brave' } else { 'chrome' }
+    $RunningInstances = Get-Process -Name $BrowserProcess -ErrorAction SilentlyContinue
+    if ($RunningInstances) {
+        Write-Host "`n  WARNING: $Browser is currently running!" -ForegroundColor Red
+        Write-Host "  Using -UseMainProfile requires ALL $Browser windows to be closed first." -ForegroundColor Yellow
+        Write-Host "  Running two instances on the same profile can corrupt data.`n" -ForegroundColor Yellow
+
+        $response = Read-Host "  Close all $Browser windows and continue? (y/N)"
+        if ($response -ne 'y') {
+            Write-Host "  Aborted." -ForegroundColor Gray
+            exit 0
+        }
+
+        Write-Host "  Closing $Browser..." -ForegroundColor Yellow
+        Stop-Process -Name $BrowserProcess -Force -ErrorAction SilentlyContinue
+        Start-Sleep -Seconds 2
+    }
+}
+
+# Determine profile directory
 $ProfileArg = ""
-if ($Profile) {
+$ProfileLabel = ""
+if ($UseMainProfile) {
+    $MainProfile = $MainProfilePaths[$Browser]
+    if (Test-Path $MainProfile) {
+        $ProfileLabel = "MAIN PROFILE ($MainProfile)"
+        # No --user-data-dir needed — browser uses default when not specified
+        # Actually we DO specify it to be explicit
+        $ProfileArg = "--user-data-dir=`"$MainProfile`""
+    } else {
+        Write-Host "WARNING: Main profile not found at $MainProfile" -ForegroundColor Yellow
+        Write-Host "Falling back to temp profile." -ForegroundColor Yellow
+        $UseMainProfile = $false
+    }
+}
+
+if (-not $UseMainProfile -and $Profile) {
     $ProfileDir = "$env:TEMP\claude-browser-debug"
     if (-not (Test-Path $ProfileDir)) {
         New-Item -ItemType Directory -Path $ProfileDir -Force | Out-Null
     }
     $ProfileArg = "--user-data-dir=`"$ProfileDir`""
+    $ProfileLabel = "Temp ($ProfileDir)"
+}
+
+if (-not $UseMainProfile -and -not $Profile) {
+    $ProfileLabel = "Default (system)"
 }
 
 Write-Host "`n========================================" -ForegroundColor Cyan
 Write-Host "  Starting $Browser with Debug Port" -ForegroundColor Cyan
 Write-Host "========================================`n" -ForegroundColor Cyan
 
-Write-Host "Browser: $BrowserExe" -ForegroundColor Gray
-Write-Host "Debug Port: $Port" -ForegroundColor Gray
-Write-Host "URL: $Url" -ForegroundColor Gray
-if ($Profile) {
-    Write-Host "Profile: $ProfileDir" -ForegroundColor Gray
+Write-Host "Browser:  $BrowserExe" -ForegroundColor Gray
+Write-Host "Debug:    Port $Port" -ForegroundColor Gray
+Write-Host "URL:      $Url" -ForegroundColor Gray
+Write-Host "Profile:  $ProfileLabel" -ForegroundColor $(if ($UseMainProfile) { 'Green' } else { 'Gray' })
+if ($UseMainProfile) {
+    Write-Host "          All your saved logins are available!" -ForegroundColor Green
 }
 
 # Build arguments
@@ -163,6 +231,9 @@ if ($Waited -ge $MaxWait) {
 Write-Host "`n========================================" -ForegroundColor Green
 Write-Host "  Browser Debug Mode Active" -ForegroundColor Green
 Write-Host "========================================" -ForegroundColor Green
-Write-Host "`nClaude can now inspect this browser session." -ForegroundColor White
+Write-Host "`nClaude Playwright MCP can now control this browser." -ForegroundColor White
 Write-Host "Debug endpoint: http://localhost:$Port" -ForegroundColor Cyan
+if ($UseMainProfile) {
+    Write-Host "`nTip: Navigate to ManageBac — you're already logged in!" -ForegroundColor Green
+}
 Write-Host "`nTo stop: Close the browser window or press Ctrl+C" -ForegroundColor Gray

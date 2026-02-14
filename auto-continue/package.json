@@ -1,0 +1,16 @@
+{
+  "name": "auto-continue",
+  "version": "1.0.0",
+  "description": "Zero-dependency orchestrator that wraps Claude Code CLI with automatic context handoff",
+  "main": "index.js",
+  "type": "commonjs",
+  "engines": {
+    "node": ">=18"
+  },
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": ["claude", "orchestrator", "auto-continue"],
+  "license": "UNLICENSED",
+  "private": true
+}

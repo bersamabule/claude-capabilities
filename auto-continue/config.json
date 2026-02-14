@@ -1,0 +1,16 @@
+{
+  "turnsPerChunk": 15,
+  "tokenThresholdPercent": 75,
+  "maxSessions": 5,
+  "maxTotalCostUsd": 10.0,
+  "maxTotalDurationMinutes": 120,
+  "stalledChunkThreshold": 2,
+  "permissionMode": "acceptEdits",
+  "handoffDirectory": "docs/context/auto-continue",
+  "workingDirectory": "C:\\Claude-Work",
+  "model": null,
+  "verbose": false,
+  "chunkTimeoutMs": 600000,
+  "retryDelayMs": 60000,
+  "overloadDelayMs": 30000
+}

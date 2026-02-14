@@ -30,13 +30,13 @@ Review the current state of the project and Living Documentation.
 Provide a concise status report:
 
 ```
-## Project Status: Claude_Code_helper
+## Project Status: [PROJECT_NAME]
 
 ### Current State
 [Brief health assessment]
 
 ### Last Session
-2025-12-15: [Summary of what happened]
+[Date]: [Summary of what happened]
 Stopped at: [Where work ended]
 
 ### Active Work

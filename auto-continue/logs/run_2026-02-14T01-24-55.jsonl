@@ -1,0 +1,15 @@
+{"type":"start","timestamp":"2026-02-14T01:24:55.764Z","elapsed_ms":1,"task":"Create a file temp/auto-test.txt with the content Hello from auto-continue orchestrator using the Write tool. Then confirm with [TASK COMPLETE]","config":{"turnsPerChunk":5,"tokenThresholdPercent":75,"maxSessions":5,"maxTotalCostUsd":1,"maxTotalDurationMinutes":120,"stalledChunkThreshold":2,"permissionMode":"acceptEdits","handoffDirectory":"docs/context/auto-continue","workingDirectory":"C:\\Claude-Work","model":null,"verbose":true,"chunkTimeoutMs":600000,"retryDelayMs":60000,"overloadDelayMs":30000}}
+{"type":"chunk_start","timestamp":"2026-02-14T01:24:55.766Z","elapsed_ms":3,"chunkNumber":1,"sessionNumber":1,"maxTurns":5,"hasSessionId":false}
+{"type":"chunk_end","timestamp":"2026-02-14T01:25:35.071Z","elapsed_ms":39308,"chunkNumber":1,"sessionNumber":1,"subtype":"success","contextPercent":52,"overThreshold":false,"progress":true,"chunkCost":0.285937,"numTurns":3}
+{"type":"continuation","timestamp":"2026-02-14T01:25:35.072Z","elapsed_ms":39309,"contextPercent":52,"note":"success but no completion marker"}
+{"type":"chunk_start","timestamp":"2026-02-14T01:25:35.072Z","elapsed_ms":39309,"chunkNumber":2,"sessionNumber":1,"maxTurns":5,"hasSessionId":true}
+{"type":"chunk_end","timestamp":"2026-02-14T01:26:10.552Z","elapsed_ms":74789,"chunkNumber":2,"sessionNumber":1,"subtype":"success","contextPercent":55,"overThreshold":false,"progress":true,"chunkCost":0.2561415,"numTurns":3}
+{"type":"continuation","timestamp":"2026-02-14T01:26:10.553Z","elapsed_ms":74790,"contextPercent":55,"note":"success but no completion marker"}
+{"type":"chunk_start","timestamp":"2026-02-14T01:26:10.553Z","elapsed_ms":74790,"chunkNumber":3,"sessionNumber":1,"maxTurns":5,"hasSessionId":true}
+{"type":"chunk_end","timestamp":"2026-02-14T01:26:50.751Z","elapsed_ms":114988,"chunkNumber":3,"sessionNumber":1,"subtype":"success","contextPercent":56,"overThreshold":false,"progress":true,"chunkCost":0.25958575,"numTurns":2}
+{"type":"continuation","timestamp":"2026-02-14T01:26:50.752Z","elapsed_ms":114989,"contextPercent":56,"note":"success but no completion marker"}
+{"type":"chunk_start","timestamp":"2026-02-14T01:26:50.753Z","elapsed_ms":114990,"chunkNumber":4,"sessionNumber":1,"maxTurns":5,"hasSessionId":true}
+{"type":"chunk_end","timestamp":"2026-02-14T01:27:20.962Z","elapsed_ms":145199,"chunkNumber":4,"sessionNumber":1,"subtype":"success","contextPercent":28,"overThreshold":false,"progress":true,"chunkCost":0.22665925,"numTurns":1}
+{"type":"continuation","timestamp":"2026-02-14T01:27:20.962Z","elapsed_ms":145199,"contextPercent":28,"note":"success but no completion marker"}
+{"type":"abort","timestamp":"2026-02-14T01:27:20.963Z","elapsed_ms":145200,"reason":"Cost limit exceeded: $1.03 > $1"}
+{"type":"end","timestamp":"2026-02-14T01:27:20.964Z","elapsed_ms":145201,"outcome":"ABORTED","totalCost":1.03,"totalSessions":1,"totalChunks":4}
